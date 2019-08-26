@@ -1,5 +1,17 @@
-<h2 class="ui center aligned segment header">Edit <%= resource_name.to_s.humanize %></h2>
-
+<div class="ui grid">
+  <div class="two wide column">
+    <% if resource.avatar? %>
+      <%= image_tag(resource.avatar_url(:thumb), class: "ui circular image") %>
+    <% else %>
+      <%= image_tag "user.jpg" %>
+    <% end %>
+  </div>
+  <div class="fourteen wide column">
+    <h2><%= @user.name %></h2>
+    <h2><%= @user.email %></h2>
+  </div>
+</div>
+<br><br>
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
 
@@ -41,6 +53,14 @@
                   input_html: { autocomplete: "current-password" } %>
     </div>
 
+    <label class="ui green button">
+      Change avatar
+      <i class="ui upload icon"></i> 
+      <span style="display:none;">
+        <%= f.input :avatar, required: true, as: :file %>
+      </span>
+    </label>
+    <br><br>
     <%= f.button :submit, "Update", class: "ui primary button" %>
   </div>
 <% end %>
