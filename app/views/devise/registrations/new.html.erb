@@ -1,38 +1,47 @@
-<h2 class="ui center aligned segment">Sign up</h2>
+<div class="ui center aligned segment header">
+  <h2><img src="https://img.icons8.com/metro/22/000000/9.png"> | Ninegram</h2>
+  <p class="text grey">Sign up to see photos and videos from your friends.</p> 
+</div>
 
-<div class="ui container">
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= f.error_notification %>
-    
-    <div class="ui form">
-      <div class="field">
-        <%= f.input :name,
-                    required: true,
-                    autofocus: true,
-                    input_html: { autocomplete: "name" } %>
-      </div>
-      <div class="field">
-        <%= f.input :email,
-                    required: true,
-                    input_html: { autocomplete: "email" } %>
-      </div>
-      <div class="field">              
-        <%= f.input :password,
-                    required: true,
-                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                    input_html: { autocomplete: "new-password" } %>
-      </div>
-      <div class="field">
-        <%= f.input :password_confirmation,
-                    required: true,
-                    input_html: { autocomplete: "new-password" } %>
-      </div>
 
-      <%= f.button :submit, "Sign up", class: "ui button" %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+  
+  <div class="ui form">
+    <div class="field">
+      <%= f.input :name,
+                  required: true,
+                  autofocus: true,
+                  placeholder: "Full Name",
+                  input_html: { autocomplete: "name" } %>
     </div>
-  <% end %>
 
-  <br>
+    <div class="field">
+      <%= f.input :email,
+                  required: true,
+                  placeholder: "Email",
+                  input_html: { autocomplete: "email" } %>
+    </div>
 
+    <div class="field">              
+      <%= f.input :password,
+                  required: true,
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  placeholder: "Password",
+                  input_html: { autocomplete: "new-password" } %>
+    </div>
+    
+    <div class="field">
+      <%= f.input :password_confirmation,
+                  required: true,
+                  placeholder: "Confirm password",
+                  input_html: { autocomplete: "new-password" } %>
+    </div>
+
+    <%= f.button :submit, "Sign up", class: "ui primary button" %>
+  </div>
+<% end %>
+
+<div class="ui message">
   <%= render "devise/shared/links" %>
 </div>

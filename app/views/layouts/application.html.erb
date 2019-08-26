@@ -4,7 +4,8 @@
     <title>Ninegram</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/57b42926de.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -27,6 +28,12 @@
   <% end %>
 
   <body>
-    <%= yield %>
+    <%= render "/layouts/navbar" %>
+    
+    <div id="main" class="ui container">
+      <%= yield %>
+    </div>
+
+    <%= render "/layouts/footer" %>
   </body>
 </html>

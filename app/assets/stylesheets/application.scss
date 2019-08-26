@@ -17,3 +17,18 @@
 @import "semantic-ui/collections/menu";
 $font-url: 'http://fonts.useso.com/css?family=Lato:400,700,400italic,700italic&subset=latin';
 
+body {
+  min-height: 2000px;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#main {
+  flex: 1;
+  margin-top: 6em;
+}
+
+.text.grey {
+	color: #A0A0A0;
+}

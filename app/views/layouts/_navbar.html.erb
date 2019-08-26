@@ -1,0 +1,49 @@
+<div class="ui top fixed menu">
+  
+  <div class="ui container grid">
+    
+    <div class="computer only row">
+      <div class="left menu">
+        <%= link_to root_path, class: "header item" do %>
+          <img src="https://img.icons8.com/metro/208/000000/9.png"> | Ninegram
+        <% end %>
+      </div>
+
+      <div class="center menu"> 
+        <div class="item">     
+          <div class="ui icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="right menu">
+        <% if user_signed_in? %>
+          <div class="item">
+            <%= link_to edit_user_registration_path(current_user) do %>
+              <i class="far fa-compass"></i>
+            <% end %>
+          </div>
+          <div class="item">
+            <%= link_to edit_user_registration_path(current_user) do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+          </div>
+          <div class="item">
+            <%= link_to edit_user_registration_path(current_user) do %>
+              <i class="far fa-user"></i>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="item">     
+            <%= link_to "Log In", new_user_session_path, class: "ui primary button" %>
+          </div>
+          <div class="item">     
+            <%= link_to "Sign up", new_user_registration_path %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

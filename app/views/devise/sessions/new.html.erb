@@ -1,20 +1,29 @@
-<h2>Log in</h2>
+<div class="ui center aligned segment header">
+<h2><img src="https://img.icons8.com/metro/22/000000/9.png"> | Ninegram</h2>
+</div>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+
+  <div class="ui form">
+    <div class="field">
+      <%= f.input :email,
+                  required: false,
+                  autofocus: true,
+                  placeholder: "Email",
+                  input_html: { autocomplete: "email" } %>
+    </div>
+    <div class="field">
     <%= f.input :password,
                 required: false,
+                placeholder: "Password",
                 input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+    </div>
+    <%= f.input :remember_me, input_html: { class: "ui checkbox" }, as: :boolean if devise_mapping.rememberable? %>
+    <br>
+    <%= f.button :submit, "Log in", class: "ui primary button" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class="ui message">
+  <%= render "devise/shared/links" %>
+</div>
