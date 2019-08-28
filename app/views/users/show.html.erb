@@ -1,2 +1,10 @@
 <%= image_tag(@user.avatar_url(:thumb), class: "ui circular image") %>
 <%= @user.name %>
+<div class="col-md-8">
+  <% if @user.posts.any? %>
+    <h3>Posts (<%= @user.posts.count %>)</h3>
+    <ol class="microposts">
+      <%= render @posts %>
+    </ol>
+  <% end %>
+</div>
