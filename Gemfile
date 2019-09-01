@@ -40,6 +40,7 @@ gem 'devise'
 gem 'gravatar_image_tag'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'jquery-rails'
 gem 'semantic-ui-sass'
 
 

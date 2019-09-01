@@ -1,10 +1,102 @@
-<%= image_tag(@user.avatar_url(:thumb), class: "ui circular image") %>
-<%= @user.name %>
-<div class="col-md-8">
-  <% if @user.posts.any? %>
-    <h3>Posts (<%= @user.posts.count %>)</h3>
-    <ol class="microposts">
-      <%= render @posts %>
-    </ol>
-  <% end %>
+<div class="ui grid">
+  <div class="four wide column">
+    <%= image_tag(@user.avatar_url(:thumb), class: "ui circular image") %>
+  </div>
+
+  <div class="twelve wide column">
+    <div class="ui grid">
+      <div class="row">
+        <div class="ui horizontal list">  
+          <div class="item">
+            <h3><%= @user.name %></h3>
+          </div>
+          <% if @user == current_user %>
+            <div class="item">
+              <%= link_to 'Edit profile', edit_user_registration_path(current_user), class: "ui basic button" %>
+            </div>
+            <div class="item">
+              <div class="ui dropdown">
+                <i class="fas fa-cog"></i>
+                <div class="menu">
+                  <div class="item">
+                    <%= link_to 'Change password', edit_user_registration_path(current_user) %>
+                  </div>
+                  <div class="item">
+                    <%= link_to 'Log Out', destroy_user_session_path %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="item">
+              <button class="ui button">Following</button> <%# Follow/Following%>
+            </div>
+            <div class="item">
+              <div class="ui dropdown">
+                <i class="fas fa-ellipsis-h"></i>
+                <div class="menu">
+                  <div class="item">
+                    Report User
+                  </div>
+                  <div class="item">
+                    Block This User
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="ui mini statistics">
+          <div class="ui horizontal statistic">
+            <div class="value">
+              <strong>
+                <%= @posts.count %>
+              </strong>
+            </div>
+            <div class="label">
+              <%= "post".pluralize(@posts.count) %>
+            </div>
+          </div>
+          <div class="ui horizontal statistic">
+            <div class="value">
+              <strong>
+                895K  
+              </strong>
+            </div>
+            <div class="label">
+              followers
+            </div>
+          </div>
+          <div class="ui horizontal statistic">
+            <div class="value">
+              <strong>
+                491
+              </strong>
+            </div>
+            <div class="label">
+              following
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- @user.username.downcase on top  @user.name + @user.bio  Change url Change title-->
+      </div>
+    </div>
+  </div>
 </div>
+
+<hr>
+
+<div class="ui center aligned segment header">
+  Posts
+  <%= link_to 'Add post', new_post_path , class: "blue ui basic button" %>
+</div>
+
+<% if @user.posts.any? %>
+  <%= render @posts %> 
+<% end %>
