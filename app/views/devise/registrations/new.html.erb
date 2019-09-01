@@ -9,6 +9,13 @@
   
   <div class="ui form">
     <div class="field">
+      <%= f.input :email,
+                  required: true,
+                  placeholder: "Email",
+                  input_html: { autocomplete: "email" } %>
+    </div>
+
+    <div class="field">
       <%= f.input :name,
                   required: true,
                   autofocus: true,
@@ -16,11 +23,11 @@
                   input_html: { autocomplete: "name" } %>
     </div>
 
-    <div class="field">
-      <%= f.input :email,
+    <div class="field">              
+      <%= f.input :nickname,
                   required: true,
-                  placeholder: "Email",
-                  input_html: { autocomplete: "email" } %>
+                  placeholder: "Username",
+                  input_html: { autocomplete: "username" } %>
     </div>
 
     <div class="field">              
@@ -31,13 +38,6 @@
                   input_html: { autocomplete: "new-password" } %>
     </div>
     
-    <div class="field">
-      <%= f.input :password_confirmation,
-                  required: true,
-                  placeholder: "Confirm password",
-                  input_html: { autocomplete: "new-password" } %>
-    </div>
-
     <%= f.button :submit, "Sign up", class: "ui primary button" %>
   </div>
 <% end %>

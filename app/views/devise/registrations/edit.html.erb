@@ -1,12 +1,13 @@
 <div class="ui grid">
-  <div class="two wide column">
+  <div class="four wide column">
     <% if resource.avatar? %>
       <%= image_tag(resource.avatar_url(:thumb), class: "ui circular image") %>
     <% else %>
-      <%= image_tag "user.jpg" %>
+      <%= image_tag('user.jpg', size: "150x150", class: "ui circular image") %>
     <% end %>
   </div>
-  <div class="fourteen wide column">
+  <div class="twelve wide column">
+    <h2><%= @user.nickname %></h2>
     <h2><%= @user.name %></h2>
     <h2><%= @user.email %></h2>
   </div>
@@ -24,9 +25,19 @@
     </div>
 
     <div class="field">
+      <%= f.input :nickname,
+                  required: true,
+                  input_html: { autocomplete: "username" } %>
+    </div>
+
+    <div class="field">
       <%= f.input :email,
                   required: true,
                   input_html: { autocomplete: "email" } %>
+    </div>
+
+    <div class="field">
+      <%= f.input :bio %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

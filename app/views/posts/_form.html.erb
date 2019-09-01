@@ -1,7 +1,18 @@
-<div class="ui center aligned segment header">
-  <h2>Create new post</h2>
-</div>
+<% if params[:action] != 'new' %> 
+  <div class="ui grid">
+    <div class="two column row">
+      <div class="column">
+        <%= image_tag(@post.post_image_url(:profile), class: "ui image") %>
+      </div>
+      <div class="column">
+        <%= @post.content %>
+      </div>
+    </div> 
+  </div>
 
+  <br><hr><br>
+
+<% end %>
 
 <%= simple_form_for @post, html: { multipart: true } do |f| %>
   <%= f.error_notification %>
@@ -9,7 +20,7 @@
 
   <div class="ui form">
     <div class="field">
-    <%= f.input :content, autofocus: true, placeholder: "Post text" %>
+      <%= f.input :content, autofocus: true, placeholder: "Post text", label: false %>
     </div>
 
     <label class="ui green button">

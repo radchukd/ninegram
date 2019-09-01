@@ -1,18 +1,28 @@
-<div class="ui grid">
-  <div class="four wide column">
-    <%= image_tag(@user.avatar_url(:thumb), class: "ui circular image") %>
-  </div>
+<% content_for :title, "#{@user.name} (@#{@user.nickname}) • Ninegram" %>
+<div class="ui center aligned segment">
 
-  <div class="twelve wide column">
-    <div class="ui grid">
-      <div class="row">
-        <div class="ui horizontal list">  
-          <div class="item">
-            <h3><%= @user.name %></h3>
-          </div>
-          <% if @user == current_user %>
+  <div class="ui grid">
+    <div class="four wide column">
+      <% if @user.avatar_url %>
+        <%= image_tag(@user.avatar_url(:thumb), class: "ui circular image") %>
+      <% else %>
+        <%= image_tag('user.jpg', size: "150x150", class: "ui circular image") %>
+      <% end %>
+    </div>
+
+    <div class="twelve wide column">
+      <div class="ui grid">
+        <div class="row">
+          <div class="ui horizontal list">  
+            <div class="item">
+              <h3><%= @user.nickname %></h3>
+            </div>
+            <% if @user == current_user %>
             <div class="item">
               <%= link_to 'Edit profile', edit_user_registration_path(current_user), class: "ui basic button" %>
+            </div>
+            <div class="item">
+              <%= link_to 'Add post', new_post_path , class: "blue ui basic button" %>
             </div>
             <div class="item">
               <div class="ui dropdown">
@@ -22,12 +32,12 @@
                     <%= link_to 'Change password', edit_user_registration_path(current_user) %>
                   </div>
                   <div class="item">
-                    <%= link_to 'Log Out', destroy_user_session_path %>
+                    <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                   </div>
                 </div>
               </div>
             </div>
-          <% else %>
+            <% else %>
             <div class="item">
               <button class="ui button">Following</button> <%# Follow/Following%>
             </div>
@@ -44,59 +54,61 @@
                 </div>
               </div>
             </div>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="ui mini statistics">
-          <div class="ui horizontal statistic">
-            <div class="value">
-              <strong>
-                <%= @posts.count %>
-              </strong>
-            </div>
-            <div class="label">
-              <%= "post".pluralize(@posts.count) %>
-            </div>
-          </div>
-          <div class="ui horizontal statistic">
-            <div class="value">
-              <strong>
-                895K  
-              </strong>
-            </div>
-            <div class="label">
-              followers
-            </div>
-          </div>
-          <div class="ui horizontal statistic">
-            <div class="value">
-              <strong>
-                491
-              </strong>
-            </div>
-            <div class="label">
-              following
-            </div>
+            <% end %>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <!-- @user.username.downcase on top  @user.name + @user.bio  Change url Change title-->
+        <div class="row">
+          <div class="ui mini statistics">
+            <div class="ui horizontal statistic">
+              <div class="value">
+                <strong>
+                  <%= @posts.count %>
+                </strong>
+              </div>
+              <div class="label">
+                <%= "post".pluralize(@posts.count) %>
+              </div>
+            </div>
+            <div class="ui horizontal statistic">
+              <div class="value">
+                <strong>
+                  895K  
+                </strong>
+              </div>
+              <div class="label">
+                followers
+              </div>
+            </div>
+            <div class="ui horizontal statistic">
+              <div class="value">
+                <strong>
+                  491
+                </strong>
+              </div>
+              <div class="label">
+                following
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h3><%= @user.name %></h3> 
+        </div>
+
+        <div class="row">
+          <%= @user.bio %>
+        </div>
       </div>
     </div>
   </div>
+
+  <br><hr><br>
+
+  <% if @posts.any? %>
+    <div class="ui three column grid">
+      <%= render @posts %>
+    </div>
+  <% end %>
 </div>
-
-<hr>
-
-<div class="ui center aligned segment header">
-  Posts
-  <%= link_to 'Add post', new_post_path , class: "blue ui basic button" %>
-</div>
-
-<% if @user.posts.any? %>
-  <%= render @posts %> 
-<% end %>

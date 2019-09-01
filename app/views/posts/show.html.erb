@@ -13,7 +13,11 @@
           <%= link_to @post.user.name, @post.user %>
         </div>
         <div class="item">
-          <button class="ui basic button">Following</button> <%# Follow/Following%>
+          <% if @post.user == current_user %>
+            <%= link_to 'Edit post', edit_post_path(@post), class: "ui basic button" %>
+          <% else %> 
+            <button class="ui basic button">Following</button> <%# Follow/Following%>
+          <% end %>
         </div>
         <div class="item">
           <div class="ui dropdown">

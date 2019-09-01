@@ -34,7 +34,7 @@ class PostImageUploader < CarrierWave::Uploader::Base
   end
 
   version :profile do
-    process :resize_to_limit => [293, 293]
+    process :resize_and_pad => [293, 293]
   end
 
   version :post do
