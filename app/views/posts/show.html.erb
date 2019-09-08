@@ -1,54 +1,56 @@
-<div class="ui grid">
-  <div class="two column row">
-    <div class="column">
-      <%= image_tag(@post.post_image_url(:post), class: "ui image") %>
-    </div>
+<div class="ui center aligned segment">
+  <div class="ui grid">
+    <div class="two column row">
+      <div class="column">
+        <%= image_tag(@post.post_image_url(:post), class: "ui image") %>
+      </div>
 
-    <div class="column">
-      <div class="ui horizontal list">
-        <div class="item">
-          <%= image_tag(@post.user.avatar_url(:mini), class: "ui circular image") %>
-        </div>
-        <div class="item">
-          <%= link_to @post.user.name, @post.user %>
-        </div>
-        <div class="item">
-          <% unless current_user == @post.user %>
-            <% if current_user.following?(@post.user) %>
-              <%= form_for(current_user.active_relationships.find_by(followed_id: @post.user.id),
-                                                                     html: { method: :delete },
-                                                                     remote: true) do |f| %>
-                <%= f.submit "Unfollow", class: "ui button" %>
-              <% end %>
-            <% else %>
-              <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
-                <div><%= hidden_field_tag :followed_id, @post.user.id %></div>
-                <%= f.submit "Follow", class: "ui primary button" %>
-              <% end %>
-            <% end %>
-          <% else %> 
-            <%= link_to 'Edit post', edit_post_path(@post), class: "ui basic button" %>
+      <div class="column">
+        <div class="ui horizontal list">
+          <%= link_to user_path(@post.user.nickname), class: "item"  do %> 
+            <%= image_tag(@post.user.avatar_url(:mini), class: "ui circular image") %>
           <% end %>
-        </div>
-        <div class="item">
-          <div class="ui dropdown">
-            <i class="fas fa-ellipsis-h"></i>
-            <div class="menu">
-              <div class="item">
-                Report Inappropriate
-              </div>
-              <div class="item">
-                Copy Link
+          <%= link_to user_path(@post.user.nickname), class: "item"  do %> 
+            <%= @post.user.nickname %>
+          <% end %>
+          <div class="item">
+            <% unless current_user == @post.user %>
+              <% if current_user.following?(@post.user) %>
+                <%= form_for(current_user.active_relationships.find_by(followed_id: @post.user.id),
+                                                                       html: { method: :delete },
+                                                                       remote: true) do |f| %>
+                  <%= f.submit "Unfollow", class: "ui button" %>
+                <% end %>
+              <% else %>
+                <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+                  <div><%= hidden_field_tag :followed_id, @post.user.id %></div>
+                  <%= f.submit "Follow", class: "ui primary button" %>
+                <% end %>
+              <% end %>
+            <% else %> 
+              <%= link_to 'Edit post', edit_post_path(@post), class: "ui basic button" %>
+            <% end %>
+          </div>
+          <div class="item">
+            <div class="ui dropdown">
+              <i class="fas fa-ellipsis-h"></i>
+              <div class="menu">
+                <div class="item">
+                  Report Inappropriate
+                </div>
+                <div class="item">
+                  Copy Link
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <br>
-      <%= @post.content %>
-      <br>
-      <%= time_ago_in_words(@post.created_at) %> ago.
+        <br>
+        <%= @post.content %>
+        <br>
+        <%= time_ago_in_words(@post.created_at) %> ago.
+      </div>
     </div>
   </div>
 </div>

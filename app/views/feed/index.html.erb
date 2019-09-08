@@ -1,0 +1,47 @@
+<div style="max-width: 614px; margin: 0 auto;">
+  <%= link_to user_path(@user.nickname), class: "ui horizontal list"  do %> 
+    <div class="item">
+      <%= image_tag(@user.avatar_url(:mini), class: "ui circular image") %>
+    </div>
+    <div class="item">
+      <%= @user.nickname %>
+    </div>
+  <% end %>
+
+  <hr>
+  
+  <% @posts.each do |post| %> 
+    <div class="ui fluid centered card">
+      <div class="content">
+        <div class="right floated meta">
+          <%= time_ago_in_words(post.created_at) %> ago.
+        </div>
+        <%= link_to user_path(post.user.nickname) do %> 
+          <%= image_tag(post.user.avatar_url(:mini), class: "ui circular image") %>
+          <%= post.user.nickname %>
+        <% end %>
+      </div>
+      <div class="image">
+        <%= image_tag(post.post_image_url(:feed)) %>
+      </div>
+<%
+=begin %> ADD LIKES, COMMENTS
+      <div class="content">
+        <span class="right floated">
+          <i class="heart outline like icon"></i>
+          17 likes
+        </span>
+        <i class="comment icon"></i>
+        3 comments
+      </div>
+      <div class="extra content">
+        <div class="ui large transparent left icon input">
+          <i class="heart outline icon"></i>
+          <input type="text" placeholder="Add Comment...">
+        </div>
+      </div>
+    </div>
+<%
+=end %>
+  <% end %>
+</div>

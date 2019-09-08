@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   path: '', 
   path_names: { sign_in: 'login', sign_out: 'logout' }
 
-  root to: "home#index"
+  root to: "feed#index"
   get 'users/:nickname' => 'users#show', :as => :user
   get 'users/:nickname/following' => 'users#following'
   get 'users/:nickname/followers' => 'users#followers'
