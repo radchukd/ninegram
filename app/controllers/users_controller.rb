@@ -2,6 +2,18 @@ class UsersController < ApplicationController
   def show
     @user = User.where(nickname: params[:nickname]).first
     @posts = @user.posts
+    @followers = @user.followers
+    @following = @user.following
+  end
+
+  def followers
+    @user = User.where(nickname: params[:nickname]).first
+    @followers = @user.followers
+  end
+
+  def following
+    @user = User.where(nickname: params[:nickname]).first
+    @following = @user.following
   end
 
   private

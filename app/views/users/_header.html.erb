@@ -1,0 +1,66 @@
+<div class="ui horizontal list">  
+
+  <div class="item">
+    <h3><%= @user.nickname %></h3>
+  </div>
+
+  <% if user_signed_in? && @user == current_user %>
+    <div class="item">
+      <%= link_to 'Edit profile', edit_user_registration_path(current_user), class: "ui basic button" %>
+    </div>
+
+    <div class="item">
+      <%= link_to 'Add post', new_post_path , class: "blue ui basic button" %>
+    </div>
+
+    <div class="item">
+      <div class="ui dropdown">
+        <i class="fas fa-cog"></i>
+        <div class="menu">
+
+          <div class="item">
+            <%= link_to 'Change password', edit_user_registration_path(current_user) %>
+          </div>
+
+          <div class="item">
+            <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <% elsif user_signed_in? %>
+  
+    <div class="item">
+      <% unless current_user == @user %>
+        <% if current_user.following?(@user) %>
+          <%= form_for(current_user.active_relationships.find_by(followed_id: @user.id),
+                                                       html: { method: :delete },
+                                                       remote: true) do |f| %>
+            <%= f.submit "Unfollow", class: "ui button" %>
+          <% end %>
+        <% else %>
+          <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+            <div><%= hidden_field_tag :followed_id, @user.id %></div>
+            <%= f.submit "Follow", class: "ui primary button" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="item">
+      <div class="ui dropdown">
+        <i class="fas fa-ellipsis-h"></i>
+        <div class="menu">
+          <div class="item">
+            Report User
+          </div>
+          <div class="item">
+            Block This User
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

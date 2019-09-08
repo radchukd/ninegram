@@ -1,0 +1,38 @@
+<div class="ui grid center segment">
+  <h1>Followed by <%= @user.nickname %></h1>
+  <div class="row">
+    <% @following.each do |followed| %>
+      <div class="column">
+        <%= link_to user_path(followed.nickname) do %> 
+          <%= image_tag(followed.avatar_url(:mini), class: "ui circular image") %>
+        <% end %>
+      </div>
+      <div class="thirteen wide column">
+        <div class="row">
+          <%= link_to user_path(followed.nickname) do %> 
+            <%= followed.nickname %>        
+          <% end %>
+        </div>
+        <div class="row"> 
+          <%= followed.name %>
+        </div>
+      </div>
+      <div class="column">
+        <% unless current_user == followed %>
+          <% if current_user.following?(followed) %>
+            <%= form_for(current_user.active_relationships.find_by(followed_id: followed.id),
+                                                                   html: { method: :delete },
+                                                                   remote: true) do |f| %>
+              <%= f.submit "Unfollow", class: "ui button" %>
+            <% end %>
+          <% else %>
+            <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+              <div><%= hidden_field_tag :followed_id, followed.id %></div>
+              <%= f.submit "Follow", class: "ui primary button" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

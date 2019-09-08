@@ -13,10 +13,21 @@
           <%= link_to @post.user.name, @post.user %>
         </div>
         <div class="item">
-          <% if @post.user == current_user %>
-            <%= link_to 'Edit post', edit_post_path(@post), class: "ui basic button" %>
+          <% unless current_user == @post.user %>
+            <% if current_user.following?(@post.user) %>
+              <%= form_for(current_user.active_relationships.find_by(followed_id: @post.user.id),
+                                                                     html: { method: :delete },
+                                                                     remote: true) do |f| %>
+                <%= f.submit "Unfollow", class: "ui button" %>
+              <% end %>
+            <% else %>
+              <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
+                <div><%= hidden_field_tag :followed_id, @post.user.id %></div>
+                <%= f.submit "Follow", class: "ui primary button" %>
+              <% end %>
+            <% end %>
           <% else %> 
-            <button class="ui basic button">Following</button> <%# Follow/Following%>
+            <%= link_to 'Edit post', edit_post_path(@post), class: "ui basic button" %>
           <% end %>
         </div>
         <div class="item">

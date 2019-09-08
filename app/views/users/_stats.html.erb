@@ -1,0 +1,35 @@
+<div class="ui mini statistics">
+
+  <div class="ui horizontal statistic">
+    <div class="value">
+      <strong>
+        <%= @posts.count %>
+      </strong>
+    </div>
+    <div class="label">
+      <%= "post".pluralize(@posts.count) %>
+    </div>
+  </div>
+
+  <%= link_to "#{@user.nickname}/followers", class: "ui horizontal statistic" do %>
+    <div class="value">
+      <strong>
+        <%= @followers.count %>
+      </strong>
+    </div>
+    <div class="label">
+      <%= "follower".pluralize(@followers.count) %>
+    </div>
+  <% end %>
+
+  <%= link_to "#{@user.nickname}/following", class: "ui horizontal statistic" do %>
+    <div class="value">
+      <strong>
+        <%= @following.count %>
+      </strong>
+    </div>
+    <div class="label">
+      following
+    </div>
+  <% end %>
+</div>

@@ -1,4 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
+  def new
+    user = super
+    user.avatar = './app/assets/images/user.jpg'
+  end
 
 private
 

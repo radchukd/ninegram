@@ -30,15 +30,15 @@ class PostImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :feed do
-    process :resize_to_limit => [614, nil]
+    process :resize_to_fill => [614, nil]
   end
 
   version :profile do
-    process :resize_and_pad => [293, 293]
+    process :resize_to_fill => [293, 293]
   end
 
   version :post do
-    process :resize_to_limit => [600, 600]
+    process :resize_to_fill => [600, 600]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -36,3 +36,10 @@ body {
 .text.grey {
 	color: #A0A0A0;
 }
+
+.none {
+  all: initial;
+  * {
+    all: unset;
+  }
+}
