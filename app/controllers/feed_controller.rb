@@ -1,14 +1,13 @@
 class FeedController < ApplicationController
-  def index
-    @user = current_user
+  before_action :authenticate_user!
 
-    if @user.nil?
-      respond_to do |format|
-        format.html { redirect_to new_user_session_path }
-      end
-    else
-      following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
-      @posts = Post.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: @user.id)
+  def index
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    @posts = Post.paginate(page: params[:page], per_page: 15)
+                 .where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: current_user.id)
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 end

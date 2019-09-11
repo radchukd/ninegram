@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
   def show
-    @user = User.where(nickname: params[:nickname]).first
-    @posts = @user.posts
+    @user  = User.where(nickname: params[:nickname]).first
+    @posts = Post.paginate(page: params[:page], per_page: 9)
+                 .where(user_id: @user.id)
     @followers = @user.followers
     @following = @user.following
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def followers

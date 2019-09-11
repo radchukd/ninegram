@@ -1,51 +1,19 @@
 <div style="max-width: 614px; margin: 0 auto;">
-  <%= link_to user_path(@user.nickname), class: "ui horizontal list"  do %> 
+  <%= link_to user_path(current_user.nickname), class: "ui horizontal list"  do %> 
     <div class="item">
-      <%= image_tag(@user.avatar_url(:mini), class: "ui circular image") %>
+      <%= image_tag(current_user.avatar_url(:mini), class: "ui circular image") %>
     </div>
     <div class="item">
-      <%= @user.nickname %>
+      <%= current_user.nickname %>
     </div>
   <% end %>
 
   <hr>
-  
-  <% @posts.each do |post| %> 
-    <div class="ui fluid centered card">
-      <div class="content">
-        <div class="right floated meta">
-          <%= time_ago_in_words(post.created_at) %> ago.
-        </div>
-        <%= link_to user_path(nickname: post.user.nickname) do %> 
-          <%= image_tag(post.user.avatar_url(:mini), class: "ui circular image") %>
-          <%= post.user.nickname %>
-        <% end %>
-      </div>
-      <div class="image">
-        <%= image_tag(post.post_image_url(:feed)) %>
-      </div>
+  <div id="posts">
+    <%= render partial: 'feed/post', :collection => @posts %>
+  </div>
 
-      <div class="content">
-        <span class="right floated">
-          <%= link_to like_post_path(post), class: "like-btn", method: :put, remote: :true do %>
-            <% if current_user.liked?(post) %>
-              <i class="fas fa-heart"></i>
-            <% else %>
-              <i class="far fa-heart"></i>
-            <% end %>
-          <% end %>
-          <span class="likes-count">
-            <%= pluralize(post.get_upvotes.size, 'like') %>
-          </span>
-        </span>
-        <i class="comment icon"></i>
-        3 comments
-      </div>
-      <div class="extra content">
-        <div class="ui large transparent left icon input">
-          <input type="text" placeholder="Add Comment...">
-        </div>
-      </div>
-    </div>
-  <% end %>
+  <div id="infinite-scrolling">
+    <%= will_paginate(@posts) %>
+  </div>
 </div>

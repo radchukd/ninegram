@@ -37,10 +37,14 @@
   </div>
 
   <br><hr><br>
-
-  <% if @posts.any? %>
+  
+  <div id="posts">
     <div class="ui three stackable cards">
-      <%= render @posts %>
+      <%= render partial: 'users/post', :collection => @posts %>
     </div>
-  <% end %>
+  </div>
+
+  <div id="infinite-scrolling">
+    <%= will_paginate(@posts) %>
+  </div>
 </div>

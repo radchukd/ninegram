@@ -1,0 +1,8 @@
+$('#posts').append('<%= j render partial: "feed/post", :collection => @posts %>');
+
+<% if @posts.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@posts) %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>

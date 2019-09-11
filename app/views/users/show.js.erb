@@ -1,0 +1,8 @@
+$('#posts').append('<div class="ui three stackable cards"><%= j render partial: "users/post", :collection => @posts %></div>');
+
+<% if @posts.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate(@posts) %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>
