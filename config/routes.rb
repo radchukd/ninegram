@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get 'users/:nickname' => 'users#show', :as => :user
   get 'users/:nickname/following' => 'users#following'
   get 'users/:nickname/followers' => 'users#followers'
+  get 'discover' => 'users#discover'
 end

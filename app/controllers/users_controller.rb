@@ -16,6 +16,11 @@ class UsersController < ApplicationController
     @following = @user.following
   end
 
+  def discover
+    @users = User.all
+    @users = @users.sort { |u1, u2| u2.passive_relationships.count <=> u1.passive_relationships.count }
+  end
+  
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.

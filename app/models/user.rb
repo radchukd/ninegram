@@ -12,7 +12,8 @@ class User < ApplicationRecord
 
   validates :nickname, 
             presence: true, 
-            length: { maximum: 30 }
+            length: { maximum: 30 }, 
+            uniqueness: true
 
   validates :bio, length: { maximum: 150 }
   has_many :posts, dependent: :destroy

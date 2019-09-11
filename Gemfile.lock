@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: 515fdbfe1091c30c272ab1214081414353e4180d
+  branch: master
+  specs:
+    faker (2.2.2)
+      i18n (~> 1.6.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -275,6 +283,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  faker!
   gravatar_image_tag
   guard
   guard-livereload (~> 2.5)

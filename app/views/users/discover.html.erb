@@ -1,28 +1,29 @@
-<h1>Following <%= @user.nickname %></h1>
+<h1>Discover most popular users</h1>
 <div class="ui middle aligned divided list">
-  <% @followers.each do |follower| %>
+  <% @users.each do |user| %>
     <div class="item">
       <div class="right floated content">
-        <% unless current_user == follower %>
-          <% if current_user.following?(follower) %>
-            <%= form_for(current_user.active_relationships.find_by(followed_id: follower.id),
+        <% unless current_user == user %>
+          <% if current_user.following?(user) %>
+            <%= form_for(current_user.active_relationships.find_by(followed_id: user.id),
                                                                    html: { method: :delete },
                                                                    remote: true) do |f| %>
               <%= f.submit "Unfollow", class: "ui button" %>
             <% end %>
           <% else %>
             <%= form_for(current_user.active_relationships.build, remote: true) do |f| %>
-              <div><%= hidden_field_tag :followed_id, follower.id %></div>
+              <div><%= hidden_field_tag :followed_id, user.id %></div>
               <%= f.submit "Follow", class: "ui primary button" %>
             <% end %>
           <% end %>
         <% end %>
       </div>
-      <%= image_tag(follower.avatar_url(:mini), class: "ui avatar image") %>
+      <%= image_tag(user.avatar_url(:mini), class: "ui avatar image") %>
       <div class="content">
-        <%= link_to follower.nickname, user_path(follower.nickname), class: "header" %> 
+        <%= link_to user.nickname, user_path(user.nickname), class: "header" %> 
         <div class="description">
-          <%= follower.name %>
+          <%= user.name %>,
+          <%= pluralize(user.passive_relationships.count, 'follower') %>
         </div>
       </div>
     </div>
