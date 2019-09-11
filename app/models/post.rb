@@ -5,4 +5,5 @@ class Post < ApplicationRecord
   validates :content, length: { maximum: 2200 }
   mount_uploader :post_image, PostImageUploader
   serialize :post_image, JSON # SQLite
+  acts_as_votable
 end

@@ -43,7 +43,7 @@ gem 'mini_magick'
 gem 'jquery-rails'
 gem 'semantic-ui-sass'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
-
+gem 'acts_as_votable'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

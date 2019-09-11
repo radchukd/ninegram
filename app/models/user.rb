@@ -37,6 +37,8 @@ class User < ApplicationRecord
            through: :passive_relationships,
            source: :follower
 
+  acts_as_voter
+
 
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :posts
+  resources :posts do
+    member do
+      put 'like' => 'posts#vote'
+    end
+  end
+  
   resources :relationships, only: [:create, :destroy]
 
   devise_for :users,
@@ -7,8 +12,11 @@ Rails.application.routes.draw do
   path: '', 
   path_names: { sign_in: 'login', sign_out: 'logout' }
 
-  root to: "feed#index"
-  get 'users/:nickname' => 'users#show', :as => :user
+  root to: 'feed#index'
+  match 'users/:nickname' => 'users#show', 
+        :constraints => { :nickname => /[0-9A-Za-z\-\.]+/ },
+        :via => [:get],
+        :as => :user
   get 'users/:nickname/following' => 'users#following'
   get 'users/:nickname/followers' => 'users#followers'
   get 'discover' => 'users#discover'

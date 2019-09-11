@@ -1,0 +1,6 @@
+<% if current_user.liked?(@post) %>
+  $(".like-btn").find("i").toggleClass('far fas');
+<% else %>
+  $(".like-btn").find("i").toggleClass('fas far');
+<% end %>
+$('.likes-count').html("<%= pluralize(@post.get_upvotes.size, 'like') %>")
