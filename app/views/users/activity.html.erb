@@ -1,0 +1,10 @@
+<h1>Activity On Your Posts</h1>
+<div class="ui middle aligned divided list">
+  <% @likes.each do |like| %>
+    <div class="item">
+      <%= link_to like[:user], user_url(like[:user])  %>
+      liked
+      <%= link_to 'your post', post_url(like[:post]) %>
+    </div>
+  <% end %>
+</div>
