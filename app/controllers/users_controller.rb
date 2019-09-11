@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     @users = User.all
     @users = @users.sort { |u1, u2| u2.passive_relationships.count <=> u1.passive_relationships.count }
   end
+
+  def search
+    @users = User.where('nickname LIKE ?', "%#{params[:nickname]}%")
+  end
   
   private
 

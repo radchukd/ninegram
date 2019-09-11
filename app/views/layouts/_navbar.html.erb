@@ -11,10 +11,11 @@
 
       <div class="center menu"> 
         <div class="item">     
-          <div class="ui icon input">
-            <input type="text" placeholder="Search...">
+          <%= form_tag(search_path, method: :get, class: "ui icon input") do %>
+            <%= text_field_tag :nickname, params[:nickname], placeholder: "Search" %>
             <i class="search link icon"></i>
-          </div>
+            <%= submit_tag nil, nickname: nil %>
+          <% end %>
         </div>
       </div>
 
